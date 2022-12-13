@@ -4,22 +4,34 @@
 // Why not? What should we do to fix it?
 // Execute `rustlings hint errors3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 use std::num::ParseIntError;
 
-fn main() {
+fn main() -> Result<(), ParseIntError> {
     let mut tokens = 100;
     let pretend_user_input = "8";
 
     let cost = total_cost(pretend_user_input)?;
-
     if cost > tokens {
         println!("You can't afford that many!");
     } else {
         tokens -= cost;
         println!("You now have {} tokens.", tokens);
     }
+
+	Ok(())
+
+    // Another solution is to not modify the main() return type and do:
+    //~ let cost = total_cost(pretend_user_input);
+    //~ match cost {
+		//~ Ok(tok) => if tok <= tokens {
+			 //~ tokens -= tok;
+			 //~ println!("You now have {} tokens.", tokens);
+		//~ } else {
+			//~ println!("You can't afford that many!")
+		//~ },
+        //~ Err(tok) => println!("NaN"),
+	//~ }
+
 }
 
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
